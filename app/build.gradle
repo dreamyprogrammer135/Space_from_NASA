@@ -16,6 +16,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("app.properties").newDataInputStream())
+        def nasaApiKey = properties.getProperty("NASA_APY_KEY", "")
+        it.buildConfigField "String", "NASA_APY_KEY", nasaApiKey
+    }
 
     buildTypes {
         release {
@@ -36,6 +42,12 @@ android {
 }
 
 dependencies {
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Coil image download
+    implementation 'io.coil-kt:coil:2.1.0'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
