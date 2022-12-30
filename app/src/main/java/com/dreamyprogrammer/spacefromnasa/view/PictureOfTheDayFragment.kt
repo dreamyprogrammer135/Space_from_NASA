@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -25,7 +26,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
 
-    private val viewModel: PictureOfTheDayViewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
 
@@ -33,6 +34,15 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveDate().observe(viewLifecycleOwner) { appState ->
             renderData(appState)
+        }
+        viewModel.sendRequest()
+
+        binding.chipToday.setOnClickListener {
+            Toast.makeText(requireContext(),"chipToday", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipYesterday.setOnClickListener {
+            Toast.makeText(requireContext(),"chipYesterday", Toast.LENGTH_SHORT).show()
+
         }
     }
 

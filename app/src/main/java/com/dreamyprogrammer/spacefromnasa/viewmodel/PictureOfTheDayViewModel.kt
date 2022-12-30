@@ -26,7 +26,7 @@ class PictureOfTheDayViewModel(
             .enqueue(callback)
     }
 
-    private val callback = object : Callback<PictureOfTheDayResponseDate> {
+    val callback = object : Callback<PictureOfTheDayResponseDate> {
         override fun onResponse(
             call: Call<PictureOfTheDayResponseDate>,
             response: Response<PictureOfTheDayResponseDate>
@@ -34,9 +34,8 @@ class PictureOfTheDayViewModel(
             if (response.isSuccessful) {
                 liveData.postValue(AppState.Success(response.body()!!))
             } else {
-                liveData.postValue(AppState.Error(throw IllegalStateException("Что-то пошло не так")))
+                liveData.postValue(AppState.Error(throw IllegalStateException("Error!!!")))
             }
-            response.body()!!
         }
 
         override fun onFailure(call: Call<PictureOfTheDayResponseDate>, t: Throwable) {
