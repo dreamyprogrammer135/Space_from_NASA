@@ -1,5 +1,7 @@
 package com.dreamyprogrammer.spacefromnasa.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,16 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        binding.textInputLayout.setEndIconOnClickListener{
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.textInput.text.toString()}")
+            })
+        }
+
+
         viewModel.getLiveDate().observe(viewLifecycleOwner) { appState ->
             renderData(appState)
         }
@@ -58,6 +70,7 @@ class PictureOfTheDayFragment : Fragment() {
                     //error()
                     //placeholder()
                 }
+                binding.explanation.text = appState.pictureOfTheDayResponseDate.explanation.toString()
             }
         }
     }
