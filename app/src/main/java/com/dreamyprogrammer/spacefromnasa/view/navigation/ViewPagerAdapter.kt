@@ -11,6 +11,7 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager) {
 
     private val fragments = arrayOf(EarthFragment(), MarsFragment(), WeatherFragment())
+    private val nameFragments = arrayOf("Земля", "Марс", "Погода")
 
     override fun getCount(): Int {
         return fragments.size
@@ -19,6 +20,11 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         return fragments[position]
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return nameFragments[position]
+    }
+
 
     //    private val fragments = arrayOf(EarthFragment(), MarsFragment(), WeatherFragment())
 //
