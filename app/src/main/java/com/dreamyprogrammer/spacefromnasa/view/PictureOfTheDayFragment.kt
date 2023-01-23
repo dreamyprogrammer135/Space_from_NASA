@@ -1,5 +1,7 @@
 package com.dreamyprogrammer.spacefromnasa.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,17 +34,29 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        binding.textInputLayout.setEndIconOnClickListener{
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.textInput.text.toString()}")
+            })
+        }
+
+
         viewModel.getLiveDate().observe(viewLifecycleOwner) { appState ->
             renderData(appState)
         }
-        viewModel.sendRequest()
+        viewModel.sendRequest(1);
+//        viewModel.sendRequest()
 
         binding.chipToday.setOnClickListener {
             Toast.makeText(requireContext(),"chipToday", Toast.LENGTH_SHORT).show()
+            viewModel.sendRequest(1);
         }
         binding.chipYesterday.setOnClickListener {
             Toast.makeText(requireContext(),"chipYesterday", Toast.LENGTH_SHORT).show()
-
+            viewModel.sendRequest(2);
         }
     }
 
@@ -58,6 +72,7 @@ class PictureOfTheDayFragment : Fragment() {
                     //error()
                     //placeholder()
                 }
+                binding.explanation.text = appState.pictureOfTheDayResponseDate.explanation.toString()
             }
         }
     }
