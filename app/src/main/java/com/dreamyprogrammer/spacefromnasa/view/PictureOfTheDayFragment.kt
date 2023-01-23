@@ -47,14 +47,16 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.getLiveDate().observe(viewLifecycleOwner) { appState ->
             renderData(appState)
         }
-        viewModel.sendRequest()
+        viewModel.sendRequest(1);
+//        viewModel.sendRequest()
 
         binding.chipToday.setOnClickListener {
             Toast.makeText(requireContext(),"chipToday", Toast.LENGTH_SHORT).show()
+            viewModel.sendRequest(1);
         }
         binding.chipYesterday.setOnClickListener {
             Toast.makeText(requireContext(),"chipYesterday", Toast.LENGTH_SHORT).show()
-
+            viewModel.sendRequest(2);
         }
     }
 
