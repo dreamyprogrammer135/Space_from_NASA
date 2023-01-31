@@ -5,12 +5,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.geekbrains.materialyou.ui.viewpager.EarthFragment
 import com.geekbrains.materialyou.ui.viewpager.MarsFragment
-import com.geekbrains.materialyou.ui.viewpager.WeatherFragment
+import com.geekbrains.materialyou.ui.viewpager.SystemFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager) {
 
-    private val fragments = arrayOf(EarthFragment(), MarsFragment(), WeatherFragment())
+    private val fragments = arrayOf(EarthFragment(), MarsFragment(), SystemFragment())
     private val nameFragments = arrayOf("Земля", "Марс", "Погода")
 
     override fun getCount(): Int {
@@ -26,7 +26,7 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
     }
 
 
-    //    private val fragments = arrayOf(EarthFragment(), MarsFragment(), WeatherFragment())
+    //    private val fragments = arrayOf(EarthFragment(), MarsFragment(), SystemFragment())
 //
 //    override fun createFragment(position: Int): Fragment {
 //        return when (position) {

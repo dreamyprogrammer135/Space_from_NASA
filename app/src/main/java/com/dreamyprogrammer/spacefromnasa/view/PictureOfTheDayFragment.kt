@@ -1,12 +1,9 @@
 package com.dreamyprogrammer.spacefromnasa.view
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -14,10 +11,13 @@ import com.dreamyprogrammer.spacefromnasa.databinding.FragmentPictureBinding
 import com.dreamyprogrammer.spacefromnasa.viewmodel.AppState
 import com.dreamyprogrammer.spacefromnasa.viewmodel.PictureOfTheDayViewModel
 
+private const val ARG_PARAM1 = "param1"
+
 class PictureOfTheDayFragment : Fragment() {
 
     private var _binding: FragmentPictureBinding? = null
     private val binding get() = _binding!!
+    private var param1: Int? = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +25,10 @@ class PictureOfTheDayFragment : Fragment() {
     ): View? {
         _binding = FragmentPictureBinding.inflate(inflater, container, false)
         return binding.root
+
+        arguments?.let {
+            param1 = it.getInt(ARG_PARAM1)
+        }
     }
 
 
@@ -36,28 +40,28 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
-        binding.textInputLayout.setEndIconOnClickListener{
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.textInput.text.toString()}")
-            })
-        }
+//        binding.textInputLayout.setEndIconOnClickListener{
+//            startActivity(Intent(Intent.ACTION_VIEW).apply {
+//                data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.textInput.text.toString()}")
+//            })
+//        }
 
 
         viewModel.getLiveDate().observe(viewLifecycleOwner) { appState ->
             renderData(appState)
         }
-        viewModel.sendRequest(1);
-//        viewModel.sendRequest()
 
-        binding.chipToday.setOnClickListener {
-            Toast.makeText(requireContext(),"chipToday", Toast.LENGTH_SHORT).show()
-            viewModel.sendRequest(1);
-        }
-        binding.chipYesterday.setOnClickListener {
-            Toast.makeText(requireContext(),"chipYesterday", Toast.LENGTH_SHORT).show()
-            viewModel.sendRequest(2);
-        }
+        viewModel.sendRequest(arguments?.getInt(ARG_PARAM1)!!);
+//        viewModel.sendRequest(param1)
+
+//        binding.chipToday.setOnClickListener {
+//            Toast.makeText(requireContext(),"chipToday", Toast.LENGTH_SHORT).show()
+//        viewModel.sendRequest(param1);
+//        }
+//        binding.chipYesterday.setOnClickListener {
+//            Toast.makeText(requireContext(),"chipYesterday", Toast.LENGTH_SHORT).show()
+//            viewModel.sendRequest(2);
+//        }
     }
 
     private fun renderData(appState: AppState) {
@@ -72,13 +76,18 @@ class PictureOfTheDayFragment : Fragment() {
                     //error()
                     //placeholder()
                 }
-                binding.explanation.text = appState.pictureOfTheDayResponseDate.explanation.toString()
+                binding.explanation.text =
+                    appState.pictureOfTheDayResponseDate.explanation.toString()
             }
         }
     }
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance(param1: Int) = PictureOfTheDayFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, param1)
+            }
+        }
     }
 
     override fun onDestroyView() {

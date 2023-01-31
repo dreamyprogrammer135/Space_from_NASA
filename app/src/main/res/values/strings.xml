@@ -7,9 +7,12 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="today">today</string>
-    <string name="yesterday">yesterday</string>
-    <string name="search_wiki">Найти в Википедии</string>
 
+    <string name="search_wiki">Найти в Википедии</string>
+    <string name="earth">Earth</string>
+    <string name="mars">Mars</string>
+    <string name="system">System</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
 
 </resources>

@@ -16,7 +16,6 @@ class ViewPagerActivity : AppCompatActivity() {
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.viewPager.adapter = ViewPager2Adapter(this)
         TabLayoutMediator(
             binding.tabLayout,
