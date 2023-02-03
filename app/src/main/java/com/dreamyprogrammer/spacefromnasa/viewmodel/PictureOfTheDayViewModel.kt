@@ -30,15 +30,12 @@ class PictureOfTheDayViewModel(
         var formatter = SimpleDateFormat("yyyy-MM-dd")
         var formattedDate = formatter.format(calendar.getTime());
 
-
-        var date = Date()
-        var dateYesTerday = Date().year.toString()+"-"+Date().month.toString()+"-"+(Date().day-1).toString()
         if (dateApi == 1) {
             repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDay(BuildConfig.NASA_APY_KEY)
                 .enqueue(callback)
         } else if (dateApi == 2)
-        repositoryImpl.getPictureOfTheDayApi()
-            .getPictureOfTheDayByDate(BuildConfig.NASA_APY_KEY, formattedDate).enqueue(callback)
+            repositoryImpl.getPictureOfTheDayApi()
+                .getPictureOfTheDayByDate(BuildConfig.NASA_APY_KEY, formattedDate).enqueue(callback)
     }
 
     val callback = object : Callback<PictureOfTheDayResponseDate> {
